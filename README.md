@@ -15,9 +15,10 @@ the library will understand that the key is being passed directly.
 
 You can generate your API key following the instructions on [Google Cloud guide](https://cloud.google.com/translate/docs/setup).
 
+**main.cpp**
 ```cpp
 #include <iostream>
-#include <gtranslator.h>
+#include <gtranslator/gtranslator.h>
 
 int main(int argc, char* argv[]){
     gtranslator::GTranslator translator("key", true);
@@ -27,6 +28,12 @@ int main(int argc, char* argv[]){
     return 0;
 }
 ```
+**compile and run:**
+```
+g++ main.cpp -o main -lgtranslator
+./main
+```
+
 **output:**
 ```
 Hello World
