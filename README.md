@@ -1,14 +1,16 @@
 # Google Translator API
 
-- [Code example](#code-example)
-- [Installation](#installation)
-
 This project aims to create a c++ library for communication with the google translator API. It makes possible to make 
 requests for translations for the API supported languages.
 
 The need for this library comes from another project that I'm working on where I've needed
 to translate sentences, I haven't found libraries supporting requests for the google translate API,
 so I've decided to write it on my own.
+
+# Overview
+
+- [Code example](#code-example)
+- [Installation](#installation)
 
 # Code Example
 
