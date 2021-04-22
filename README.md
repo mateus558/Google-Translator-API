@@ -11,6 +11,7 @@ so I've decided to write it on my own.
 
 - [Code example](#code-example)
 - [Installation](#installation)
+- [Acknowledgements](#acknowledgements)
 
 # Code Example
 
@@ -60,3 +61,10 @@ mkdir build && cd build
 cmake ..
 make
 sudo make install
+```
+
+# Acknowledgements
+
+Here I'll list the repositories that I've used in this project.
+- [nlohmann::json](https://github.com/nlohmann/json)
+- [How to export C++ library](https://github.com/robotology/how-to-export-cpp-library)
