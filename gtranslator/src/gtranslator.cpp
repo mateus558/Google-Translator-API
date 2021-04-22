@@ -55,7 +55,7 @@ namespace gtranslator{
 
     std::string GTranslator::translate(const std::string& text, const std::string& from, const std::string& to){
         std::string readBuffer;
-
+        assert(!this->api_key.empty() && "An API key must be provided.");
         // Verify if Sentence exist on translations cache
         if(cache.find(text) != cache.end() && use_cached){
             if(!cache[text].empty()) return cache[text];
