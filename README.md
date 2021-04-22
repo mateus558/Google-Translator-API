@@ -1,5 +1,8 @@
 # Google Translator API
 
+- [Code example](#code-example)
+- [Installation](#installation)
+
 This project aims to create a c++ library for communication with the google translator API. It makes possible to make 
 requests for translations for the API supported languages.
 
@@ -7,7 +10,7 @@ The need for this library comes from another project that I'm working on where I
 to translate sentences, I haven't found libraries supporting requests for the google translate API,
 so I've decided to write it on my own.
 
-## Example
+# Code Example
 
 In the example bellow the API key is being provided from a file, for that 
 you need to pass the file name and set a flag indicating that its a file, otherwise,
@@ -40,7 +43,7 @@ Hello World
 ```
 
 
-## Installation
+# Installation
 
 **Requirements:**
 - LibCurl
