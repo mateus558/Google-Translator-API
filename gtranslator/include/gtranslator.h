@@ -18,14 +18,17 @@ namespace gtranslator{
             static bool use_cached, cache_loaded;
             static std::map<std::string, std::string> cache;
 
+            void init_curl();
             static bool load_cache();
             static void save_cache();
             static size_t write_callback(void* ptr, size_t size, size_t nmemb, std::string* data);
         public:
+            explicit GTranslator();
             explicit GTranslator(const std::string& key, bool is_file=false);
             ~GTranslator();
 
             static void set_use_cached(bool use);
+            void set_key(const std::string& key);
             std::string translate(const std::string& text, const std::string& from, const std::string& to);
         };
     }

@@ -13,6 +13,10 @@ namespace gtranslator{
     std::map<std::string, std::string> GTranslator::cache = std::map<std::string, std::string>();
     bool GTranslator::use_cached = false, GTranslator::cache_loaded = false;
 
+    GTranslator::GTranslator() {
+        if(use_cached && !cache_loaded) load_cache();
+    }
+
     GTranslator::GTranslator(const std::string& key, bool is_file) {
         assert((key != "") && "A key must be provided to request from google API.");
         if(is_file){
@@ -21,6 +25,15 @@ namespace gtranslator{
             key_file.close();
         }else{
             this->api_key = key;
+        }
+        init_curl();
+        if(use_cached && !cache_loaded) load_cache();
+    }
+
+    void GTranslator::init_curl() {
+        if(curl){
+            curl_easy_cleanup(curl);
+            curl = nullptr;
         }
         curl_global_init(CURL_GLOBAL_ALL);
         chunk = curl_slist_append(this->chunk, "Content-Type:application/json");
@@ -33,7 +46,6 @@ namespace gtranslator{
             curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
             curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, GTranslator::write_callback);
         }
-        if(use_cached && !cache_loaded) load_cache();
     }
 
     size_t GTranslator::write_callback(void* ptr, size_t size, size_t nmemb, std::string* data) {
@@ -49,7 +61,7 @@ namespace gtranslator{
             if(!cache[text].empty()) return cache[text];
         }
 
-        if(curl) {
+        if(curl && !this->api_key.empty()) {
             std::string params = R"({"q":")";
             params += text + std::string(R"(", "source":")");
             params += from + std::string(R"(", "target":")");
@@ -138,4 +150,10 @@ namespace gtranslator{
     void GTranslator::set_use_cached(bool use) {
         use_cached = use;
     }
+
+    void GTranslator::set_key(const std::string &key) {
+        this->api_key = key;
+        init_curl();
+    }
+
 }

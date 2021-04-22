@@ -26,6 +26,17 @@ TEST(SIMPLETEST, BasicTranslationWithFileKey) {
     EXPECT_STREQ(result.c_str(), "\"Hello World\"");
 }
 
+TEST(SIMPLETEST, BasicTranslationNoKey) {
+    gtranslator::GTranslator translator;
+    std::ifstream key_file("key");
+    std::string key;
+    key_file >> key;
+    key_file.close();
+    translator.set_key(key);
+    auto result = translator.translate("olá mundo", "pt", "en");
+    EXPECT_STREQ(result.c_str(), "\"Hello World\"");
+}
+
 GTEST_API_ int main(int argc, char **argv)
 {
     testing::InitGoogleTest(&argc, argv);
