@@ -1,0 +1,6 @@
+enable_testing()
+add_executable(example example.cpp)
+target_link_libraries(example ${PROJECT_NAME} gtest)
+include(GoogleTest)
+gtest_discover_tests(example)
+add_test(NAME example_test COMMAND example)
