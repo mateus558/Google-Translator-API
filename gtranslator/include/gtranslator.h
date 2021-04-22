@@ -13,6 +13,7 @@ namespace gtranslator{
         class GTranslator{
         private:
             CURL *curl{nullptr};
+            std::string api_key;
             struct curl_slist *chunk = nullptr;
             static bool use_cached, cache_loaded;
             static std::map<std::string, std::string> cache;
@@ -21,7 +22,7 @@ namespace gtranslator{
             static void save_cache();
             static size_t write_callback(void* ptr, size_t size, size_t nmemb, std::string* data);
         public:
-            explicit GTranslator();
+            explicit GTranslator(const std::string& key, bool is_file=false);
             ~GTranslator();
 
             static void set_use_cached(bool use);

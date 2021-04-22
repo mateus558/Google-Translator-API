@@ -9,12 +9,18 @@ so I've decided to write it on my own.
 
 ## Example
 
+In the example bellow the API key is being provided from a file, for that 
+you need to pass the file name and set a flag indicating that its a file, otherwise,
+the library will understand that the key is being passed directly.
+
+You can generate your API key following the instructions on [Google Cloud guide](https://cloud.google.com/translate/docs/setup).
+
 ```cpp
 #include <iostream>
 #include <gtranslator.h>
 
 int main(int argc, char* argv[]){
-    gtranslator::GTranslator translator;
+    gtranslator::GTranslator translator("key", true);
     
     std::cout << translator.translate("olá mundo", "pt", "en");
     

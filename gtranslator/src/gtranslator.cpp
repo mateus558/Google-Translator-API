@@ -4,7 +4,7 @@
 #include <fstream>
 #include <set>
 #include <filesystem>
-#define URL_WITH_KEY "https://translation.googleapis.com/language/translate/v2?key=AIzaSyD3-4XA1LzZNq4XT9FHsPVJaXA1P0zOa1s"
+#define API_URL "https://translation.googleapis.com/language/translate/v2?key="
 #define CACHE_FILE "gtranslator.cache"
 
 using json = nlohmann::json;
@@ -13,13 +13,21 @@ namespace gtranslator{
     std::map<std::string, std::string> GTranslator::cache = std::map<std::string, std::string>();
     bool GTranslator::use_cached = false, GTranslator::cache_loaded = false;
 
-    GTranslator::GTranslator() {
+    GTranslator::GTranslator(const std::string& key, bool is_file) {
+        assert((key != "") && "A key must be provided to request from google API.");
+        if(is_file){
+            std::ifstream key_file("key");
+            key_file >> this->api_key;
+            key_file.close();
+        }else{
+            this->api_key = key;
+        }
         curl_global_init(CURL_GLOBAL_ALL);
         chunk = curl_slist_append(this->chunk, "Content-Type:application/json");
         curl = curl_easy_init();
         if (curl) {
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
-            curl_easy_setopt(curl, CURLOPT_URL, URL_WITH_KEY);
+            curl_easy_setopt(curl, CURLOPT_URL, (std::string(API_URL)+this->api_key).c_str());
             curl_easy_setopt(curl, CURLOPT_TCP_FASTOPEN, 1L);
             curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
             curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
