@@ -78,12 +78,9 @@ namespace gtranslator{
             cache[text] = translation;
             cache[translation] = text;
             return translation;
-        }catch (...){
-            // output exception information
-            std::cerr << readBuffer << std::endl;
-//            std::cerr << "message: " <<  e.errorString().toUtf8().constData() << '\n'
-//                      << "exception id: " << e.error << '\n'
-//                      << "byte position of error: " << e.offset << std::endl;
+        }catch (json::exception& e){
+            std::cerr << "message: " << e.what() << '\n'
+                      << "exception id: " << e.id << std::endl;
             return "";
         }
     }
